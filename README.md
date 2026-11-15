@@ -88,7 +88,17 @@ Publicado el 14 de noviembre de 2026 en https://byron-reinoso.vercel.app.
 
 Proyecto: `byron-reinoso`, en `diegosalamea42-5397s-projects`. La compilación remota terminó correctamente y la comprobación HTTP pasó sobre las ocho páginas públicas, sus enlaces, el contacto y la respuesta 404, sin autenticación de visitantes.
 
-Para actualizarlo desde esta carpeta, con una sesión válida de Vercel:
+Repositorio: https://github.com/Diego2580/ByronReinoso. El proyecto está conectado a GitHub desde el 15 de noviembre de 2026. La rama de trabajo es `main`; los cambios se envían con:
+
+```sh
+git add <archivos-del-cambio>
+git commit -m "Descripción del cambio"
+git push origin main
+```
+
+Vercel construye el sitio desde el repositorio conectado. Revisar el estado del despliegue antes de dar una actualización por publicada. Consultar `CONTEXTO_PROYECTO.md` al retomar el trabajo.
+
+Como alternativa manual, con una sesión válida de Vercel:
 
 ```sh
 npx vercel@latest deploy --prod --yes --project byron-reinoso --scope diegosalamea42-5397s-projects
@@ -96,4 +106,4 @@ npx vercel@latest deploy --prod --yes --project byron-reinoso --scope diegosalam
 
 Si Node muestra `UNABLE_TO_VERIFY_LEAF_SIGNATURE` en este equipo, activar el uso del almacén de certificados del sistema en esa terminal PowerShell antes del comando: `$env:NODE_USE_SYSTEM_CA='1'`. No desactivar la validación TLS.
 
-`.vercelignore` excluye dependencias, cachés, metadatos Git y archivos de entorno del envío. Este despliegue no conecta un repositorio Git ni configura despliegues automáticos. La agenda y los datos de contacto siguen pendientes de confirmación.
+`.vercelignore` excluye dependencias, cachés, metadatos Git, la junction local de skills y archivos de entorno del envío. La agenda y los datos de contacto siguen pendientes de confirmación.

@@ -114,7 +114,8 @@ npm run check:routes -- https://byron-reinoso.vercel.app
 - Scope: `diegosalamea42-5397s-projects`.
 - URL pública verificada: https://byron-reinoso.vercel.app
 - Primer despliegue CLI: 14 de noviembre de 2026; compilación remota correcta y ocho rutas verificadas sin sesión de visitante.
-- Hasta la solicitud actual, Vercel se actualizaba desde CLI, sin conexión Git.
+- Hasta el 15 de noviembre, Vercel se actualizaba desde CLI, sin conexión Git. Ese día se subió el código a `origin/main` y Vercel confirmó la conexión con `Diego2580/ByronReinoso` mediante `vercel git connect`.
+- Commit inicial: `00dbef7` (sitio, configuración, licencias, documentación y este contexto). Los cambios de documentación posteriores sirven también para comprobar el flujo de despliegue desde GitHub. Consultar GitHub y Vercel para obtener el commit y estado más recientes.
 - La raíz Git anterior era `C:/Users/diego`, ajena al proyecto. El 15 de noviembre se creó una raíz propia en esta carpeta, con rama `main` y remoto `origin` apuntando al repositorio solicitado. No se modificó ni subió el repositorio del perfil.
 - `.agents/skills` es una junction local a Web Design Master fuera de esta carpeta. `.agents/` se excluye de Git y del despliegue porque no es portable; para usar esas skills en otro equipo hay que disponer de ellas por separado.
 - No subir `.env*`, `.vercel`, `.next`, `node_modules`, cachés ni credenciales. Revisar `.gitignore` y `.vercelignore`.
