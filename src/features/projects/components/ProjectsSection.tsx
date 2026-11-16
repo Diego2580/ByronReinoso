@@ -3,46 +3,88 @@ import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/content/projects";
 import { ProjectMockup } from "./ProjectMockup";
 import { site } from "@/content/site";
-export function ProjectsSection() {
+import s from "./projects.module.css";
+export function ProjectsSection({ showIntro = true }: { showIntro?: boolean }) {
   return (
-    <section className="projects section wrap" id="proyectos">
-      <p className="eyebrow">{site.projects.label}</p>
-      <div className="section-heading">
-        <h2>{site.projects.title}</h2>
-        <p>{site.projects.intro}</p>
-      </div>
-      <div className="project-grid">
-        {projects.map((project, i) => (
-          <article className="project-card" key={project.slug}>
-            <Link
-              href={`/proyectos/${project.slug}`}
-              className="project-image-link"
-              aria-label={`${site.projects.link}: ${project.name}`}
-            >
-              <ProjectMockup project={project} />
-              <span className="project-concept">{site.projects.concept}</span>
-              <span className="project-open">
-                <ArrowUpRight size={21} />
-              </span>
-            </Link>
-            <div className="project-meta">
-              <div>
-                <p className="micro">
+    <section
+      className={`${s.gallery} ${showIntro ? "" : s.compact}`}
+      id="proyectos"
+      aria-labelledby="projects-title"
+    >
+      <div className="wrap">
+        {showIntro ? (
+          <div className={s.intro}>
+            <div>
+              <p className={s.label}>{site.projects.label}</p>
+              <h2 id="projects-title">
+                Ideas claras.
+                <br />
+                <span>Presencias distintas.</span>
+              </h2>
+            </div>
+            <p>
+              Dos conceptos propios para explorar cómo una estrategia de marca
+              puede tomar forma en la web.
+            </p>
+          </div>
+        ) : (
+          <h2 id="projects-title" className={s.visuallyHidden}>
+            Proyectos seleccionados
+          </h2>
+        )}
+        <div className={s.collection}>
+          {projects.map((project, i) => (
+            <article className={s.project} key={project.slug}>
+              <div className={s.projectTop}>
+                <span>
                   0{i + 1} / {project.sector}
-                </p>
+                </span>
+                <span>Estudio conceptual</span>
+              </div>
+              <Link
+                href={`/proyectos/${project.slug}`}
+                className={s.artLink}
+                aria-label={`Explorar concepto: ${project.name}`}
+              >
+                <div className={s.reveal} data-project-reveal>
+                  <ProjectMockup project={project} large />
+                </div>
+                <span className={s.open} aria-hidden="true">
+                  <ArrowUpRight size={26} />
+                </span>
+              </Link>
+              <div className={s.meta}>
                 <h3>
                   <Link href={`/proyectos/${project.slug}`}>
                     {project.name}
-                    <ArrowUpRight size={21} aria-hidden="true" />
+                    <ArrowUpRight size={28} aria-hidden="true" />
                   </Link>
                 </h3>
+                <div>
+                  <p>{project.descriptor}</p>
+                  <span>{project.summary}</span>
+                  <Link
+                    href={`/proyectos/${project.slug}`}
+                    className={s.caseLink}
+                  >
+                    Explorar las decisiones{" "}
+                    <ArrowUpRight size={18} aria-hidden="true" />
+                  </Link>
+                </div>
               </div>
-              <p>{project.summary}</p>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
+        <div className={s.galleryFoot}>
+          <p className={s.disclaimer}>{site.projects.note}</p>
+          {showIntro && (
+            <Link href="/proyectos" className={s.caseLink}>
+              Ver todos los proyectos{" "}
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+          )}
+        </div>
       </div>
-      <p className="project-note">{site.projects.note}</p>
     </section>
   );
 }

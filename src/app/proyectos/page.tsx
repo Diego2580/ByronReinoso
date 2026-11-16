@@ -11,7 +11,7 @@ export default function ProjectsPage() {
   return (
     <main id="contenido">
       <PageIntro content={site.pages.projects} />
-      <ProjectsSection />
+      <ProjectsSection showIntro={false} />
       <ContactTeaser />
     </main>
   );

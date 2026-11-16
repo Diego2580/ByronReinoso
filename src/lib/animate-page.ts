@@ -53,6 +53,45 @@ export function animatePage() {
           },
         );
       });
+    // Reveal a narrow edge mask only; the artwork remains visible without JS.
+    gsap.utils
+      .toArray<HTMLElement>("[data-project-reveal]")
+      .forEach((element) => {
+        gsap.fromTo(
+          element,
+          { clipPath: "inset(4% 3% 4% 3% round 24px)" },
+          {
+            clipPath: "inset(0% 0% 0% 0% round 0px)",
+            ease: "none",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 90%",
+              end: "top 35%",
+              scrub: 0.5,
+            },
+          },
+        );
+      });
+    gsap.utils
+      .toArray<HTMLElement>("[data-method-timeline]")
+      .forEach((timeline) => {
+        const progress = timeline.querySelector("[data-method-progress]");
+        if (progress)
+          gsap.fromTo(
+            progress,
+            { strokeDashoffset: 1 },
+            {
+              strokeDashoffset: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: timeline,
+                start: "top 65%",
+                end: "bottom 65%",
+                scrub: true,
+              },
+            },
+          );
+      });
     const refresh = () => ScrollTrigger.refresh();
     let alive = true;
     void document.fonts.ready.then(() => {
@@ -116,14 +155,12 @@ export function animatePage() {
           ? gsap.quickTo(graphic, "y", { duration: 0.7, ease })
           : null;
         const glyphMotion = glyph
-          ? gsap
-              .timeline({ paused: true })
-              .to(glyph, {
-                morphSVG:
-                  "M16 3 C24 3 29 8 29 16 C29 24 24 29 16 29 C8 29 3 24 3 16 C3 8 8 3 16 3 Z",
-                duration: 0.7,
-                ease,
-              })
+          ? gsap.timeline({ paused: true }).to(glyph, {
+              morphSVG:
+                "M16 3 C24 3 29 8 29 16 C29 24 24 29 16 29 C8 29 3 24 3 16 C3 8 8 3 16 3 Z",
+              duration: 0.7,
+              ease,
+            })
           : null;
         observer = Observer.create({
           target: hero,

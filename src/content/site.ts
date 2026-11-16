@@ -139,30 +139,38 @@ export const site = {
     pause: "Pausar movimiento",
   },
   method: {
-    label: "04 / MÉTODO",
+    label: "05 / PROCESO",
     title: "Claridad en cada paso.",
     body: "Sin cajas negras. Sabes qué estamos haciendo, por qué y qué sigue.",
     steps: [
       {
         title: "Diagnóstico y estrategia de marca",
+        output: "Objetivo, público y dirección de la web.",
+        review: "Acordamos qué debe comunicar tu negocio.",
         body: "Entiendo tu negocio, tu público y tu diferencia. Definimos el objetivo y la dirección de la web.",
       },
       {
         title: "Diseño y prototipo",
+        output: "Estructura de contenido y prototipo visual.",
+        review: "Revisamos el diseño antes de construir.",
         body: "Ordeno el contenido y doy forma a la experiencia. Revisamos juntos un prototipo antes de desarrollar.",
       },
       {
         title: "Desarrollo e integración",
+        output: "Web adaptable e integraciones acordadas.",
+        review: "Comprobamos navegación, contenido y contacto.",
         body: "Convierto el diseño en una web adaptable y conecto las herramientas acordadas en la propuesta.",
       },
       {
         title: "Entrega y acompañamiento",
+        output: "Entrega del sitio y orientación para su uso.",
+        review: "Definimos el siguiente paso según el alcance contratado.",
         body: "Revisamos el sitio y su uso. La entrega y el acompañamiento se definen según el alcance acordado.",
       },
     ],
   },
   about: {
-    label: "05 / DETRÁS DE CADA PROYECTO",
+    label: "06 / DETRÁS DE CADA PROYECTO",
     title: "Soy Byron.\nEstrategia en la cabeza.\nDiseño en las manos.",
     body: "Llevo 10 años trabajando en marketing y gestión de marca. Mi forma de diseñar una web empieza por entender el negocio que hay detrás.",
     detail:
