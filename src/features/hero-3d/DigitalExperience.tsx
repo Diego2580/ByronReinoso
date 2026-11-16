@@ -121,25 +121,26 @@ export function DigitalExperience() {
               start: "top 30%",
               end: "center 35%",
               scrub: true,
-            },
-            onUpdate: function () {
-              if (philosophy.current) {
-                const p = this.progress();
-                const channels = [17 + 230 * p, 17 + 228 * p, 17 + 223 * p].map(
-                  (value) => {
+              onUpdate: ({ progress: p }) => {
+                if (philosophy.current) {
+                  const channels = [
+                    17 + 230 * p,
+                    17 + 228 * p,
+                    17 + 223 * p,
+                  ].map((value) => {
                     const c = value / 255;
                     return c <= 0.04045
                       ? c / 12.92
                       : Math.pow((c + 0.055) / 1.055, 2.4);
-                  },
-                );
-                const luminance =
-                  channels[0] * 0.2126 +
-                  channels[1] * 0.7152 +
-                  channels[2] * 0.0722;
-                philosophy.current.style.color =
-                  luminance > 0.179 ? "#000000" : "#ffffff";
-              }
+                  });
+                  const luminance =
+                    channels[0] * 0.2126 +
+                    channels[1] * 0.7152 +
+                    channels[2] * 0.0722;
+                  philosophy.current.style.color =
+                    luminance > 0.179 ? "#000000" : "#ffffff";
+                }
+              },
             },
           },
         );
