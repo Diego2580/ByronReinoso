@@ -107,3 +107,15 @@ npx vercel@latest deploy --prod --yes --project byron-reinoso --scope diegosalam
 Si Node muestra `UNABLE_TO_VERIFY_LEAF_SIGNATURE` en este equipo, activar el uso del almacén de certificados del sistema en esa terminal PowerShell antes del comando: `$env:NODE_USE_SYSTEM_CA='1'`. No desactivar la validación TLS.
 
 `.vercelignore` excluye dependencias, cachés, metadatos Git, la junction local de skills y archivos de entorno del envío. La agenda y los datos de contacto siguen pendientes de confirmación.
+
+## Estado vigente · restauración y fase 2 · 16 de noviembre de 2026
+
+El usuario autorizó reconstruir el diseño después de que desaparecieran los cambios locales anteriores. Se restauró el recorrido Hero 3D → Filosofía en `src/features/hero-3d/DigitalExperience.tsx`, con escena diferida en `HeroScene.tsx`. Siete láminas metálicas se separan y giran según el scroll. La escena acompaña la transición en una capa fija (z-index 1) detrás del texto (z-index 2), sin columna reservada ni captura de eventos. Desaparece al finalizar el bloque. SVG durante carga, ante error de React o falta de WebGL; geometría móvil simplificada y DPR limitado. La renderización ambiental se detiene fuera del bloque/pestaña. El usuario pidió retirar la activación voluntaria: el 3D se inicia automáticamente y no existe botón “Activar experiencia”. Se mantiene pausa del movimiento ambiental; con movimiento reducido esa rotación empieza pausada, mientras el scroll controla el desarme. Esto sustituye las decisiones históricas de no usar WebGL en hero.
+
+Fase 2: tokens en `src/styles/tokens.css` y servicios bento reutilizados en Inicio y Soluciones. Presencia y Clientes ocupan tarjetas de distinto ancho con ilustraciones HTML/CSS propias; Experiencia ocupa una tarjeta horizontal oscura con órbitas. Alcances y CTA reales conservados, sin precios ni resultados inventados. Efecto de profundidad suave en hover/foco, con transición desactivada para movimiento reducido. La presentación de Byron se reutiliza en el inicio. Contactos siguen vacíos.
+
+Las ocho skills de Web Design Master se copiaron como archivos locales en `.agents/skills` y se habilitaron en Git; siguen excluidas del despliegue. No existe ahora una junction externa. Consultadas UI/UX, sistema de diseño, React, motion, responsive, accesibilidad y QA visual.
+
+Comprobación: lint y build correctos. En Chrome se verificó canvas WebGL automático y ausencia de botón de activación; revisión visual de bento en escritorio. Vista móvil con ancho CSS observado de 417 px sin overflow horizontal; las capturas móviles agotaron el tiempo, por lo que su revisión visual completa queda pendiente. Consola sin errores en la sesión revisada. No se midieron FPS, Lighthouse ni Core Web Vitals ni se declara auditoría WCAG. Vista previa: `npm run dev -- --port 3002`.
+
+Pendiente del plan completo: galería inmersiva, timeline de proceso, FAQ dentro del inicio, refinamiento de interiores, contenido real y contacto. Esta fase no completa las ocho secciones. Cambios locales sin push ni despliegue.

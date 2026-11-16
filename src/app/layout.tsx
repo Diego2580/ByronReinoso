@@ -6,6 +6,7 @@ import { fontVariables } from "@/lib/fonts";
 import { PageMotion } from "@/components/ui/PageMotion";
 import "@/styles/globals.css";
 import "@/styles/refinements.css";
+import "@/styles/tokens.css";
 export const metadata: Metadata = {
   title: { default: site.title, template: "%s | Byron Reinoso" },
   description: site.description,

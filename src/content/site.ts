@@ -110,7 +110,7 @@ export const site = {
     ],
   },
   projects: {
-    label: "02 / PROYECTOS SELECCIONADOS",
+    label: "04 / PROYECTOS SELECCIONADOS",
     title: "De una idea clara,\na una presencia distinta.",
     intro:
       "Dos exploraciones propias de cómo una estrategia puede tomar forma en la web.",

@@ -1,0 +1,239 @@
+.experience {
+  --progress: 0;
+  background: #111;
+  color: #f7f5f0;
+}
+.hero {
+  padding: 44px max(32px, calc((100vw - 1240px) / 2)) 24px;
+  min-height: 90svh;
+}
+.top,
+.bottom,
+.caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font:
+    11px/1.6 var(--font-mono),
+    monospace;
+  letter-spacing: 0.07em;
+}
+.top,
+.copy,
+.bottom,
+.caption {
+  position: relative;
+  z-index: 2;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 1.12fr 1fr;
+  gap: 32px;
+  align-items: center;
+  min-height: 70svh;
+}
+.copy {
+  padding: 60px 0;
+}
+.copy h1 {
+  font:
+    400 clamp(44px, 5.2vw, 78px)/1.08 var(--font-display),
+    Georgia,
+    serif;
+  letter-spacing: -0.045em;
+  white-space: normal;
+}
+.copy h1 span {
+  display: block;
+}
+.muted {
+  color: #aaa69d;
+}
+.copy em {
+  color: #d8bd91;
+  font-style: normal;
+}
+.copy > p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #d2cec5;
+  max-width: 440px;
+  margin-top: 28px;
+}
+.actions {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  font-size: 13px;
+}
+.actions > a:first-child {
+  background: #f7f5f0;
+  color: #111;
+  min-height: 48px;
+  font-size: 12px;
+}
+.visual {
+  position: relative;
+  height: 65svh;
+  min-width: 0;
+}
+.scene {
+  position: fixed;
+  inset: 12vh max(24px, calc((100vw - 1240px) / 2)) auto auto;
+  width: min(52vw, 740px);
+  height: 76vh;
+  z-index: 1;
+  pointer-events: none;
+  opacity: clamp(0, calc((1 - var(--progress)) * 1.4), 1);
+  transform: translateY(calc(var(--progress) * 12vh));
+}
+.staticScene {
+  position: absolute;
+  inset: 0 0 70px;
+}
+.fallback,
+.fallback svg {
+  width: 100%;
+  height: 100%;
+}
+.caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 10px;
+}
+.caption button {
+  border: 1px solid #817568;
+  color: #f7f5f0;
+  background: #111;
+  border-radius: 100vmax;
+  min-height: 44px;
+  padding: 8px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+.bottom {
+  border-top: 1px solid #ffffff30;
+  padding-top: 20px;
+  color: #d1c5b6;
+}
+.bottom a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.philosophy {
+  position: relative;
+  padding: clamp(72px, 10vw, 150px) max(32px, calc((100vw - 1240px) / 2));
+  background: #111;
+  color: #fff;
+}
+.content {
+  position: relative;
+  z-index: 2;
+}
+.label {
+  font:
+    11px/1.6 var(--font-mono),
+    monospace;
+  letter-spacing: 0.1em;
+}
+.philosophy h2 {
+  font:
+    400 clamp(40px, 6.6vw, 94px)/1.15 var(--font-display),
+    Georgia,
+    serif;
+  letter-spacing: -0.04em;
+  max-width: 1050px;
+  margin: 64px 0;
+  white-space: normal;
+}
+.philosophyBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 40px;
+  font-size: 17px;
+  line-height: 1.8;
+}
+.philosophyBottom p {
+  max-width: 570px;
+}
+.philosophyBottom a {
+  font-size: 14px;
+  min-height: 44px;
+  white-space: nowrap;
+}
+.philosophy ul {
+  list-style: none;
+  padding: 28px 0 0;
+  margin-top: 64px;
+  border-top: 1px solid currentColor;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  font-size: 13px;
+}
+.experience a:focus-visible,
+.experience button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+@media (max-width: 767px) {
+  .hero {
+    padding: 28px 20px 18px;
+  }
+  .top {
+    font-size: 10px;
+  }
+  .top > span:last-child {
+    display: none;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .copy {
+    padding: 34px 0 0;
+  }
+  .copy h1 {
+    font-size: clamp(36px, 8.6vw, 60px);
+  }
+  .copy > p {
+    font-size: 15px;
+  }
+  .visual {
+    height: 370px;
+    margin-top: 16px;
+  }
+  .scene {
+    inset: 34vh 5vw auto auto;
+    width: 90vw;
+    height: 55vh;
+  }
+  .bottom {
+    flex-wrap: wrap;
+    font-size: 10px;
+  }
+  .philosophy {
+    padding: 72px 20px;
+  }
+  .philosophy h2 {
+    font-size: clamp(38px, 9vw, 64px);
+    margin: 40px 0;
+  }
+  .philosophyBottom {
+    flex-direction: column;
+    align-items: start;
+    font-size: 16px;
+    gap: 24px;
+  }
+  .philosophy ul {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
