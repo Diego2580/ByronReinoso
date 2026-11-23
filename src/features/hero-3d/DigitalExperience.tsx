@@ -81,8 +81,6 @@ export function DigitalExperience() {
     visual = useRef<HTMLDivElement>(null);
   const state = useRef<SceneState>({
     progress: 0,
-    anchorX: 0,
-    anchorY: 0,
     visualWidth: 0,
     visualHeight: 0,
     invalidate: () => {},
@@ -153,7 +151,16 @@ export function DigitalExperience() {
         scrollTrigger: {
           trigger: element,
           start: "top top",
-          end: "bottom 65%",
+          end: () => {
+            if (!matchMedia("(max-width:1023px)").matches)
+              return "bottom 65%";
+            if (!philosophy.current) return "bottom 65%";
+            const distance =
+              philosophy.current.getBoundingClientRect().top -
+              element.getBoundingClientRect().top -
+              (visualViewport?.height ?? innerHeight) * 0.65;
+            return `+=${Math.max(1, distance)}`;
+          },
           scrub: true,
           invalidateOnRefresh: true,
         },
@@ -204,24 +211,23 @@ export function DigitalExperience() {
     let refreshFrame = 0;
     const measure = () => {
       if (!visual.current) return;
-      const bounds = visual.current.getBoundingClientRect(),
-        centerX = bounds.left + bounds.width / 2,
-        centerY = bounds.top + scrollY + bounds.height / 2;
-      state.current.anchorX = (centerX / innerWidth) * 2 - 1;
-      state.current.anchorY = 1 - (centerY / innerHeight) * 2;
+      const bounds = visual.current.getBoundingClientRect();
       state.current.visualWidth = bounds.width;
       state.current.visualHeight = bounds.height;
       state.current.invalidate();
     };
     measure();
-    const resizeObserver = new ResizeObserver(() => {
+    const refresh = () => {
       cancelAnimationFrame(refreshFrame);
       refreshFrame = requestAnimationFrame(() => {
         measure();
         ScrollTrigger.refresh();
       });
-    });
+    };
+    const resizeObserver = new ResizeObserver(refresh),
+      viewport = window.visualViewport;
     resizeObserver.observe(element);
+    viewport?.addEventListener("resize", refresh);
     void document.fonts.ready.then(() => {
       if (alive) ScrollTrigger.refresh();
     });
@@ -229,6 +235,7 @@ export function DigitalExperience() {
       alive = false;
       cancelAnimationFrame(refreshFrame);
       resizeObserver.disconnect();
+      viewport?.removeEventListener("resize", refresh);
       motionMedia.revert();
       context.revert();
     };

@@ -205,11 +205,14 @@
     margin: 16px auto 0;
   }
   .scene {
-    position: fixed;
-    inset: 0;
+    position: absolute;
+    inset: 0 auto auto 50%;
     width: 100vw;
-    height: 100svh;
-    transform: none;
+    height: calc(100% + 45dvh);
+    transform: translate(
+      -50%,
+      calc(var(--progress) * 12vh)
+    );
   }
   .bottom {
     flex-wrap: wrap;
@@ -248,11 +251,14 @@
     margin: 20px auto 0;
   }
   .scene {
-    position: fixed;
-    inset: 0;
+    position: absolute;
+    inset: 0 auto auto 50%;
     width: 100vw;
-    height: 100svh;
-    transform: none;
+    height: calc(100% + 45dvh);
+    transform: translate(
+      -50%,
+      calc(var(--progress) * 12vh)
+    );
   }
 }
 
