@@ -1,5 +1,5 @@
 "use client";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
 import {
@@ -8,10 +8,18 @@ import {
   MathUtils,
   TorusGeometry,
 } from "three";
-export type SceneState = { progress: number; invalidate: () => void };
+export type SceneState = {
+  progress: number;
+  anchorX: number;
+  anchorY: number;
+  visualWidth: number;
+  visualHeight: number;
+  invalidate: () => void;
+};
 type Props = {
   state: MutableRefObject<SceneState>;
   mobile: boolean;
+  tablet: boolean;
   active: boolean;
   paused: boolean;
   onReady: (invalidate: () => void) => void;
@@ -25,8 +33,9 @@ const rings = [
 function Sculpture({
   state,
   mobile,
+  tablet,
   paused,
-}: Pick<Props, "state" | "mobile" | "paused">) {
+}: Pick<Props, "state" | "mobile" | "tablet" | "paused">) {
   const geometry = useMemo(
     () =>
       rings.map(
@@ -43,6 +52,7 @@ function Sculpture({
   const pieces = useRef<(Mesh | null)[]>([]),
     group = useRef<Group>(null),
     time = useRef(0);
+  const { size, viewport } = useThree();
   useEffect(() => () => geometry.forEach((g) => g.dispose()), [geometry]);
   useFrame((_, delta) => {
     const p = state.current.progress;
@@ -64,17 +74,28 @@ function Sculpture({
       piece.scale.setScalar(1 - a * 0.16);
     });
     if (group.current) {
+      const responsiveScale =
+        (Math.min(state.current.visualWidth, state.current.visualHeight) *
+          0.9 *
+          (viewport.width / size.width)) /
+        3.8;
       group.current.rotation.set(
         0.02 + Math.sin(time.current * 0.22) * 0.035,
         -0.18 + time.current * 0.055,
         -0.12 + Math.sin(time.current * 0.3) * 0.04,
       );
       group.current.position.set(
-        mobile ? 0.35 : 0,
-        (mobile ? -0.34 : 0) + Math.sin(time.current * 0.4) * 0.04,
+        mobile || tablet
+          ? state.current.anchorX * (viewport.width / 2)
+          : 0,
+        (mobile || tablet
+          ? state.current.anchorY * (viewport.height / 2)
+          : 0) + Math.sin(time.current * 0.4) * 0.04,
         0,
       );
-      group.current.scale.setScalar(mobile ? 0.78 : 1);
+      group.current.scale.setScalar(
+        mobile || tablet ? responsiveScale : 1,
+      );
     }
   });
   return (
@@ -102,6 +123,7 @@ function Sculpture({
 export default function HeroScene({
   state,
   mobile,
+  tablet,
   active,
   paused,
   onReady,
@@ -141,7 +163,12 @@ export default function HeroScene({
           scale={[2, 6, 1]}
         />
       </Environment>
-      <Sculpture state={state} mobile={mobile} paused={paused} />
+      <Sculpture
+        state={state}
+        mobile={mobile}
+        tablet={tablet}
+        paused={paused}
+      />
     </Canvas>
   );
 }

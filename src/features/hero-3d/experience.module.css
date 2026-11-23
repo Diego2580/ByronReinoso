@@ -109,16 +109,6 @@
   flex-wrap: wrap;
   font-size: 10px;
 }
-.caption button {
-  border: 1px solid #17191640;
-  color: #171916;
-  background: #efede5;
-  border-radius: 100vmax;
-  min-height: 44px;
-  padding: 8px 14px;
-  font: inherit;
-  cursor: pointer;
-}
 .bottom {
   border-top: 1px solid #17191630;
   padding-top: 20px;
@@ -210,13 +200,16 @@
     font-size: 15px;
   }
   .visual {
-    height: 370px;
-    margin-top: 16px;
+    width: min(100%, 440px);
+    height: clamp(260px, 75vw, 360px);
+    margin: 16px auto 0;
   }
   .scene {
-    inset: 34vh 5vw auto auto;
-    width: 90vw;
-    height: 55vh;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100svh;
+    transform: none;
   }
   .bottom {
     flex-wrap: wrap;
@@ -238,6 +231,28 @@
   .philosophy ul {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .copy {
+    padding-bottom: 0;
+  }
+  .visual {
+    width: min(100%, 720px);
+    height: clamp(380px, 54vw, 520px);
+    margin: 20px auto 0;
+  }
+  .scene {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100svh;
+    transform: none;
   }
 }
 
@@ -271,9 +286,6 @@
   }
   .copy {
     padding-top: 46px;
-  }
-  .visual {
-    height: 300px;
   }
   .tape {
     padding: 18px 0;
