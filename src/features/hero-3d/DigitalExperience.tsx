@@ -110,13 +110,20 @@ export function DigitalExperience() {
         setReady(false);
       }
     });
-    let visible = true;
-    const visibility = () => setActive(visible && !document.hidden);
+    const element = root.current;
+    const bounds = element?.getBoundingClientRect();
+    let visible = !bounds || (bounds.bottom > 0 && bounds.top < window.innerHeight);
+    const visibility = () => {
+      if (element) element.dataset.sceneVisible = String(visible);
+      setActive(visible && !document.hidden);
+      if (visible && !document.hidden) state.current.invalidate();
+    };
+    visibility();
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       visibility();
     });
-    if (root.current) observer.observe(root.current);
+    if (element) observer.observe(element);
     media.addEventListener("change", resize);
     tabletMedia.addEventListener("change", resize);
     document.addEventListener("visibilitychange", visibility);

@@ -96,6 +96,10 @@
   position: absolute;
   inset: 0 0 70px;
 }
+.experience[data-scene-visible="false"] .scene,
+.experience[data-scene-visible="false"] .staticScene {
+  visibility: hidden;
+}
 .fallback,
 .fallback svg {
   width: 100%;
