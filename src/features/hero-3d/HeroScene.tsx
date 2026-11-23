@@ -10,8 +10,6 @@ import {
 } from "three";
 export type SceneState = {
   progress: number;
-  anchorX: number;
-  anchorY: number;
   visualWidth: number;
   visualHeight: number;
   invalidate: () => void;
@@ -85,11 +83,10 @@ function Sculpture({
         -0.12 + Math.sin(time.current * 0.3) * 0.04,
       );
       group.current.position.set(
-        mobile || tablet
-          ? state.current.anchorX * (viewport.width / 2)
-          : 0,
+        0,
         (mobile || tablet
-          ? state.current.anchorY * (viewport.height / 2)
+          ? (0.5 - state.current.visualHeight / 2 / size.height) *
+            viewport.height
           : 0) + Math.sin(time.current * 0.4) * 0.04,
         0,
       );
