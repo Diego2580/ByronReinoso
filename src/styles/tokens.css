@@ -1,11 +1,11 @@
 :root {
-  --br-paper: #f7f5f0;
-  --br-ink: #111111;
-  --br-champagne: #b08d57;
-  --br-muted: #5c5c53;
-  --br-line: #11111126;
-  --br-radius: 24px;
-  --br-space-section: clamp(64px, 8vw, 112px);
+  --br-paper: #efede5;
+  --br-ink: #171916;
+  --br-champagne: #9f472e;
+  --br-muted: #55584e;
+  --br-line: #17191626;
+  --br-radius: 4px;
+  --br-space-section: clamp(64px, 8vw, 128px);
   --br-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --br-duration: 320ms;
 }
