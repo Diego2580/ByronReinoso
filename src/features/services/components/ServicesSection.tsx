@@ -61,17 +61,17 @@ function ServiceVisual({ index }: { index: number }) {
     </div>
   );
 }
-export function ServicesSection() {
+export function ServicesSection({ home = false }: { home?: boolean }) {
   return (
     <section
       id="soluciones"
-      className={s.section}
+      className={`${s.section} ${home ? s.home : ""}`}
       aria-labelledby="services-title"
     >
       <div className="wrap">
         <div className={s.heading}>
           <div>
-            <p className={s.eyebrow}>04 / SOLUCIONES</p>
+            <p className={s.eyebrow}>{home ? "03" : "04"} / SOLUCIONES</p>
             <h2 id="services-title">
               Tres formas de crecer.
               <br />
@@ -87,6 +87,7 @@ export function ServicesSection() {
           {services.map((service, i) => (
             <article
               key={service.number}
+              id={home ? undefined : ["presencia", "clientes", "experiencia"][i]}
               className={`${s.card} ${i === 2 ? s.immersive : ""}`}
             >
               <div className={s.cardCopy}>
@@ -101,16 +102,18 @@ export function ServicesSection() {
                   </span>
                   <MoveUpRight size={22} aria-hidden="true" />
                 </div>
-                <p className={s.kind}>{service.kind}</p>
+                <p className={s.kind}>{home ? ["Micro-landing", "Web corporativa", "Web inmersiva"][i] : service.kind}</p>
                 <h3>{service.title}</h3>
                 <p className={s.body}>{service.body}</p>
-                <p className={s.detail}>{service.detail}</p>
-                <ul className={s.tags}>
+                {!home && <p className={s.detail}>{service.detail}</p>}
+                {!home && <ul className={s.tags}>
                   {service.tags.map((tag) => (
                     <li key={tag}>{tag}</li>
                   ))}
-                </ul>
-                <BookingLink className={s.cta} />
+                </ul>}
+                {home ? (
+                  <Link className={s.serviceLink} href={`/soluciones#${["presencia", "clientes", "experiencia"][i]}`}>Conocer {service.title} <ArrowUpRight size={16} aria-hidden="true" /></Link>
+                ) : <BookingLink className={s.cta} />}
               </div>
               <ServiceVisual index={i} />
             </article>
@@ -121,10 +124,9 @@ export function ServicesSection() {
             El diagnóstico define qué necesita tu negocio. Cada propuesta se
             cotiza a medida.
           </p>
-          <Link href="/soluciones">
-            Explorar las soluciones{" "}
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
+          {home ? <BookingLink className={s.cta} /> : (
+            <Link href="/soluciones">Explorar las soluciones <ArrowUpRight size={18} aria-hidden="true" /></Link>
+          )}
         </div>
       </div>
     </section>

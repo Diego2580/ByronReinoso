@@ -296,11 +296,10 @@ export function DigitalExperience() {
           <a href="#enfoque">Explora lo que podemos crear ↓</a>
         </div>
       </section>
-      <div className={s.tape} aria-hidden="true">
-        <span>
-          ESTRATEGIA DE MARCA <i>↗</i> DISEÑO WEB <i>↗</i> EXPERIENCIAS
-          DIGITALES <i>↗</i> ESTRATEGIA DE MARCA
-        </span>
+      <div className={s.tape}>
+        {["Estrategia de marca", "Diseño web", "Experiencias digitales"].map((label) => (
+          <Link href="/soluciones" key={label}>{label}</Link>
+        ))}
       </div>
       <section
         ref={philosophy}

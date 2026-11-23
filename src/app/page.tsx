@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <main id="contenido">
       <DigitalExperience />
+      <ServicesSection home />
       <ProjectsSection />
-      <ServicesSection />
       <MethodSection />
       <AboutSection />
       <ContactTeaser />
