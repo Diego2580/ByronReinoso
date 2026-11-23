@@ -7,6 +7,7 @@ import { PageMotion } from "@/components/ui/PageMotion";
 import "@/styles/globals.css";
 import "@/styles/refinements.css";
 import "@/styles/tokens.css";
+import "@/styles/studio.css";
 export const metadata: Metadata = {
   title: { default: site.title, template: "%s | Byron Reinoso" },
   description: site.description,
@@ -23,7 +24,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={fontVariables}>
-      <body id="top">
+      <body id="top" className="studio-edition">
         <a className="skip-link" href="#contenido">
           Saltar al contenido
         </a>

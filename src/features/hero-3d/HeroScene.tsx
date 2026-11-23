@@ -114,7 +114,7 @@ function Sculpture({
           }}
         >
           <meshPhysicalMaterial
-            color={i % 3 === 0 ? "#b9a17d" : "#d3cedb"}
+            color={i % 3 === 0 ? "#b9a17d" : "#d3d7c8"}
             metalness={0.98}
             roughness={0.22}
             clearcoat={1}
@@ -157,7 +157,7 @@ export default function HeroScene({
         />
         <Lightformer
           intensity={4}
-          color="#c8c2d9"
+          color="#d1d8c0"
           position={[-4, 0, 2]}
           rotation={[0, Math.PI / 2, 0]}
           scale={[2, 7, 1]}

@@ -110,7 +110,7 @@ export const site = {
     ],
   },
   projects: {
-    label: "04 / PROYECTOS SELECCIONADOS",
+    label: "03 / PROYECTOS SELECCIONADOS",
     title: "De una idea clara,\na una presencia distinta.",
     intro:
       "Dos exploraciones propias de cómo una estrategia puede tomar forma en la web.",
@@ -123,7 +123,7 @@ export const site = {
     next: "¿Una dirección así para tu negocio?",
   },
   services: {
-    label: "03 / SOLUCIONES",
+    label: "04 / SOLUCIONES",
     title: "El punto de partida\nes tu negocio.",
     body: "Una presencia concreta o una experiencia más ambiciosa. Elegimos el alcance que tenga sentido para ti.",
   },

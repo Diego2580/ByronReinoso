@@ -71,7 +71,7 @@ export function ServicesSection() {
       <div className="wrap">
         <div className={s.heading}>
           <div>
-            <p className={s.eyebrow}>03 / SOLUCIONES</p>
+            <p className={s.eyebrow}>04 / SOLUCIONES</p>
             <h2 id="services-title">
               Tres formas de crecer.
               <br />
