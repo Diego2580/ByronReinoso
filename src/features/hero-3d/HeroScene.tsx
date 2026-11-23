@@ -3,11 +3,10 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
 import {
-  BufferGeometry,
-  Float32BufferAttribute,
   type Group,
   type Mesh,
   MathUtils,
+  TorusGeometry,
 } from "three";
 export type SceneState = { progress: number; invalidate: () => void };
 type Props = {
@@ -17,59 +16,28 @@ type Props = {
   paused: boolean;
   onReady: (invalidate: () => void) => void;
 };
-function ribbon(index: number, mobile: boolean) {
-  const rows = mobile ? 20 : 40,
-    cols = mobile ? 4 : 8;
-  const vertices: number[] = [],
-    indices: number[] = [];
-  for (let side = 0; side < 2; side++)
-    for (let row = 0; row <= rows; row++)
-      for (let col = 0; col <= cols; col++) {
-        const u = row / rows,
-          v = (col / cols) * 2 - 1,
-          theta = (index / 7) * Math.PI * 2 + (u - 0.5) * 2.7;
-        const radius =
-          0.35 + Math.sin(u * Math.PI) * 1.08 + (side === 0 ? 0.035 : -0.035);
-        const edge = v * (0.23 + 0.1 * Math.sin(u * Math.PI));
-        vertices.push(
-          radius * Math.cos(theta) - edge * Math.sin(theta),
-          (u - 0.5) * 3.65,
-          radius * Math.sin(theta) + edge * Math.cos(theta),
-        );
-      }
-  const stride = cols + 1,
-    skin = (rows + 1) * stride;
-  for (let side = 0; side < 2; side++)
-    for (let row = 0; row < rows; row++)
-      for (let col = 0; col < cols; col++) {
-        const a = side * skin + row * stride + col,
-          b = a + stride;
-        if (side === 0) indices.push(a, a + 1, b, a + 1, b + 1, b);
-        else indices.push(a, b, a + 1, a + 1, b, b + 1);
-      }
-  const seal = (a: number, b: number) =>
-    indices.push(a, b, a + skin, b, b + skin, a + skin);
-  for (let row = 0; row < rows; row++) {
-    seal(row * stride, (row + 1) * stride);
-    seal(row * stride + cols, (row + 1) * stride + cols);
-  }
-  for (let col = 0; col < cols; col++) {
-    seal(col, col + 1);
-    seal(rows * stride + col, rows * stride + col + 1);
-  }
-  const geometry = new BufferGeometry();
-  geometry.setAttribute("position", new Float32BufferAttribute(vertices, 3));
-  geometry.setIndex(indices);
-  geometry.computeVertexNormals();
-  return geometry;
-}
+const rings = [
+  { radius: 1.62, rotation: [0.18, 0.72, -0.32] },
+  { radius: 1.42, rotation: [1.12, -0.3, 0.42] },
+  { radius: 1.78, rotation: [0.74, 0.28, 1.18] },
+  { radius: 1.24, rotation: [1.42, 0.82, -0.66] },
+] as const;
 function Sculpture({
   state,
   mobile,
   paused,
 }: Pick<Props, "state" | "mobile" | "paused">) {
   const geometry = useMemo(
-    () => Array.from({ length: 7 }, (_, i) => ribbon(i, mobile)),
+    () =>
+      rings.map(
+        ({ radius }) =>
+          new TorusGeometry(
+            radius,
+            mobile ? 0.075 : 0.095,
+            mobile ? 16 : 24,
+            mobile ? 64 : 96,
+          ),
+      ),
     [mobile],
   );
   const pieces = useRef<(Mesh | null)[]>([]),
@@ -81,26 +49,32 @@ function Sculpture({
     if (!paused) time.current += Math.min(delta, 0.05);
     pieces.current.forEach((piece, i) => {
       if (!piece) return;
-      const a = MathUtils.smoothstep(p, 0.025 + i * 0.018, 0.82 + i * 0.018),
-        angle = (i / 7) * Math.PI * 2;
+      const a = MathUtils.smoothstep(p, 0.03 + i * 0.035, 0.8 + i * 0.025),
+        angle = (i / rings.length) * Math.PI * 2;
       piece.position.set(
-        Math.cos(angle) * a * 5.5,
-        Math.sin(angle) * a * 4.2 - a * 0.45,
-        Math.sin(i * 2.4) * a * 2,
+        Math.cos(angle) * a * 3.8,
+        -a * (3.2 + i * 0.42) + Math.sin(angle) * a * 0.8,
+        Math.sin(angle) * a * 1.8,
       );
       piece.rotation.set(
-        Math.sin(i * 1.7) * a * 1.3,
-        Math.cos(i * 1.3) * a * 1.5,
-        (i % 2 ? 1 : -1) * a * 1.2,
+        rings[i].rotation[0] + Math.sin(i * 1.7) * a * 1.5,
+        rings[i].rotation[1] + Math.cos(i * 1.3) * a * 1.7,
+        rings[i].rotation[2] + (i % 2 ? 1 : -1) * a * 1.35,
       );
+      piece.scale.setScalar(1 - a * 0.16);
     });
     if (group.current) {
       group.current.rotation.set(
-        0.13,
-        -0.38,
-        -0.28 + Math.sin(time.current * 0.35) * 0.025,
+        0.02 + Math.sin(time.current * 0.22) * 0.035,
+        -0.18 + time.current * 0.055,
+        -0.12 + Math.sin(time.current * 0.3) * 0.04,
       );
-      group.current.position.y = Math.sin(time.current * 0.5) * 0.045;
+      group.current.position.set(
+        mobile ? 0.35 : 0,
+        (mobile ? -0.34 : 0) + Math.sin(time.current * 0.4) * 0.04,
+        0,
+      );
+      group.current.scale.setScalar(mobile ? 0.78 : 1);
     }
   });
   return (
@@ -114,14 +88,11 @@ function Sculpture({
           }}
         >
           <meshPhysicalMaterial
-            color={i % 3 === 0 ? "#b9a17d" : "#d3d7c8"}
+            color={i % 2 === 0 ? "#b08d57" : "#242321"}
             metalness={0.98}
-            roughness={0.22}
-            clearcoat={1}
-            iridescence={1}
-            iridescenceIOR={1.35}
-            iridescenceThicknessRange={[180, 420]}
-            envMapIntensity={1.35}
+            roughness={i % 2 === 0 ? 0.2 : 0.27}
+            clearcoat={0.65}
+            envMapIntensity={1.15}
           />
         </mesh>
       ))}
