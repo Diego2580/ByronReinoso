@@ -20,15 +20,43 @@ function Fallback() {
             <stop offset="1" stopColor="#c8c2d9" />
           </linearGradient>
         </defs>
-        <g transform="translate(240 250) rotate(-18)">
-          {Array.from({ length: 7 }, (_, i) => (
-            <path
-              key={i}
-              transform={`rotate(${(i * 360) / 7})`}
-              d="M-20-170 C160-120 140 70 20 170 C65 60 45-65-20-170Z"
-              fill="url(#br-metal)"
-            />
-          ))}
+        <g transform="translate(240 250) rotate(-12)" fill="none">
+          <ellipse
+            cx="0"
+            cy="0"
+            rx="154"
+            ry="74"
+            stroke="url(#br-metal)"
+            strokeWidth="16"
+            transform="rotate(18)"
+          />
+          <ellipse
+            cx="0"
+            cy="0"
+            rx="142"
+            ry="68"
+            stroke="#272727"
+            strokeWidth="14"
+            transform="rotate(76)"
+          />
+          <ellipse
+            cx="0"
+            cy="0"
+            rx="166"
+            ry="82"
+            stroke="url(#br-metal)"
+            strokeWidth="13"
+            transform="rotate(132)"
+          />
+          <ellipse
+            cx="0"
+            cy="0"
+            rx="124"
+            ry="60"
+            stroke="#4a443b"
+            strokeWidth="12"
+            transform="rotate(-38)"
+          />
         </g>
       </svg>
     </div>
