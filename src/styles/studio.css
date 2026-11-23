@@ -1,0 +1,192 @@
+/* Experimental editorial direction. This file exists only on the studio branch. */
+body.studio-edition {
+  --bone: #efede5;
+  --ink: #171916;
+  --gold: #9f472e;
+  --font-heading: var(--font-sans);
+  background: #efede5;
+  color: #171916;
+}
+.studio-edition .wrap {
+  max-width: 1320px;
+  width: calc(100% - 80px);
+}
+.studio-edition .header {
+  min-height: 108px;
+  padding-block: 24px;
+  border-bottom: 1px solid #17191635;
+}
+.studio-edition .wordmark {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  font-size: 27px;
+  line-height: 0.88;
+}
+.studio-edition .logo-dot {
+  color: #9f472e;
+}
+.studio-edition .desktop-nav {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  gap: 24px;
+  padding: 0;
+}
+.studio-edition .desktop-nav a {
+  padding: 10px 0;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  border-radius: 0;
+}
+.studio-edition .desktop-nav a[aria-current="page"] {
+  background: transparent;
+  border-bottom: 1px solid #171916;
+}
+.studio-edition .button {
+  border-radius: 3px;
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  min-height: 48px;
+  box-shadow: none;
+}
+.studio-edition .eyebrow,
+.studio-edition .micro {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.studio-edition h2 {
+  letter-spacing: -0.035em;
+}
+.studio-edition .about-section {
+  background: #20251e;
+  color: #efede5;
+}
+.studio-edition .about-grid {
+  gap: 80px;
+  padding-block: 112px;
+}
+.studio-edition .about-graphic {
+  border-radius: 0;
+  background: #293025;
+  color: #e6e7d7;
+  min-height: 520px;
+  border: 1px solid #ffffff25;
+}
+.studio-edition .monogram {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(160px, 20vw, 280px);
+  font-weight: 400;
+  letter-spacing: -0.09em;
+}
+.studio-edition .monogram span {
+  color: #bdae87;
+}
+.studio-edition .about-copy h2 {
+  font:
+    400 clamp(38px, 4vw, 62px)/1.1 var(--font-display),
+    serif;
+}
+.studio-edition .about-copy .lead {
+  color: #efede5;
+  font:
+    400 23px/1.6 var(--font-editorial),
+    serif;
+}
+.studio-edition .about-copy > p:not(.eyebrow):not(.lead) {
+  color: #d0d4c8;
+  font-size: 15px;
+  line-height: 1.9;
+}
+.studio-edition .about-copy .eyebrow,
+.studio-edition .about-sign {
+  color: #d6c4a3;
+}
+.studio-edition .contact-teaser {
+  background: #9f472e;
+  padding: 100px 0;
+  color: #fff8ed;
+}
+.studio-edition .contact-teaser > .wrap {
+  display: block;
+}
+.studio-edition .contact-teaser h2 {
+  max-width: 1000px;
+  font:
+    400 clamp(52px, 7vw, 108px)/1.03 var(--font-display),
+    serif;
+  letter-spacing: -0.045em;
+}
+.studio-edition .contact-teaser p {
+  color: #fff8ed;
+  max-width: 550px;
+  font-size: 17px;
+  line-height: 1.8;
+  margin-top: 28px;
+}
+.studio-edition .contact-teaser .button {
+  display: inline-flex;
+  background: #fff8ed;
+  color: #171916;
+  margin-top: 36px;
+  border: 0;
+}
+.studio-edition .footer {
+  padding-block: 48px 24px;
+}
+.studio-edition .footer-name {
+  font:
+    400 38px var(--font-display),
+    serif;
+  letter-spacing: -0.04em;
+}
+.studio-edition .footer-name span {
+  font:
+    12px var(--font-sans),
+    sans-serif;
+  letter-spacing: 0;
+  margin-top: 12px;
+}
+.studio-edition .footer-bottom {
+  font-size: 11px;
+}
+.studio-edition .page-intro h1 {
+  font-size: clamp(48px, 7vw, 100px);
+  line-height: 1.05;
+}
+.studio-edition a:focus-visible,
+.studio-edition button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+@media (max-width: 959px) {
+  .studio-edition .wrap {
+    width: calc(100% - 40px);
+  }
+  .studio-edition .header {
+    min-height: 88px;
+  }
+  .studio-edition .about-grid {
+    gap: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .studio-edition .about-grid {
+    padding-block: 64px;
+  }
+  .studio-edition .about-graphic {
+    min-height: 360px;
+  }
+  .studio-edition .contact-teaser {
+    padding-block: 64px;
+  }
+  .studio-edition .contact-teaser h2 {
+    font-size: clamp(45px, 11vw, 70px);
+  }
+  .studio-edition .footer-name {
+    font-size: 32px;
+  }
+}

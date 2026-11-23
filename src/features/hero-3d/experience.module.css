@@ -1,11 +1,12 @@
 .experience {
   --progress: 0;
-  background: #111;
-  color: #f7f5f0;
+  background: #efede5;
+  color: #171916;
 }
 .hero {
   padding: 44px max(32px, calc((100vw - 1240px) / 2)) 24px;
-  min-height: 90svh;
+  min-height: 92svh;
+  background: #efede5;
 }
 .top,
 .bottom,
@@ -27,7 +28,7 @@
 }
 .layout {
   display: grid;
-  grid-template-columns: 1.12fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 32px;
   align-items: center;
   min-height: 70svh;
@@ -37,17 +38,19 @@
 }
 .copy h1 {
   font:
-    400 clamp(44px, 5.2vw, 78px)/1.08 var(--font-display),
+    400 clamp(72px, 9.3vw, 144px)/0.91 var(--font-display),
     Georgia,
     serif;
   letter-spacing: -0.045em;
   white-space: normal;
 }
-.copy h1 span {
+.copy h1 > span {
   display: block;
 }
 .muted {
-  color: #aaa69d;
+  color: #646657;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-style: italic;
 }
 .copy em {
   color: #d8bd91;
@@ -56,7 +59,7 @@
 .copy > p {
   font-size: 16px;
   line-height: 1.8;
-  color: #d2cec5;
+  color: #4d5047;
   max-width: 440px;
   margin-top: 28px;
 }
@@ -69,8 +72,8 @@
   font-size: 13px;
 }
 .actions > a:first-child {
-  background: #f7f5f0;
-  color: #111;
+  background: #171916;
+  color: #f7f5f0;
   min-height: 48px;
   font-size: 12px;
 }
@@ -107,9 +110,9 @@
   font-size: 10px;
 }
 .caption button {
-  border: 1px solid #817568;
-  color: #f7f5f0;
-  background: #111;
+  border: 1px solid #17191640;
+  color: #171916;
+  background: #efede5;
   border-radius: 100vmax;
   min-height: 44px;
   padding: 8px 14px;
@@ -117,9 +120,9 @@
   cursor: pointer;
 }
 .bottom {
-  border-top: 1px solid #ffffff30;
+  border-top: 1px solid #17191630;
   padding-top: 20px;
-  color: #d1c5b6;
+  color: #4d5047;
 }
 .bottom a {
   min-height: 44px;
@@ -201,7 +204,7 @@
     padding: 34px 0 0;
   }
   .copy h1 {
-    font-size: clamp(36px, 8.6vw, 60px);
+    font-size: clamp(68px, 18vw, 108px);
   }
   .copy > p {
     font-size: 15px;
@@ -236,4 +239,49 @@
     grid-template-columns: 1fr;
     gap: 18px;
   }
+}
+
+.period {
+  color: #9f472e;
+}
+.tape {
+  position: relative;
+  z-index: 2;
+  background: #9f472e;
+  color: #fff8ed;
+  padding: 22px 0;
+  overflow: hidden;
+}
+.tape > span {
+  display: block;
+  width: max-content;
+  font:
+    500 clamp(24px, 3vw, 44px)/1.2 var(--font-sans),
+    sans-serif;
+  letter-spacing: -0.035em;
+  transform: translateX(calc(var(--progress) * -260px));
+}
+.tape i {
+  font-style: normal;
+  margin: 0 36px;
+}
+@media (max-width: 767px) {
+  .hero {
+    padding-top: 32px;
+  }
+  .copy {
+    padding-top: 46px;
+  }
+  .visual {
+    height: 300px;
+  }
+  .tape {
+    padding: 18px 0;
+  }
+}
+
+.copy > p {
+  background: #efede5ed;
+  box-shadow: 16px 0 20px #efede5ed;
+  position: relative;
 }

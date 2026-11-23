@@ -91,6 +91,18 @@ export function DigitalExperience() {
     const element = root.current;
     if (!element) return;
     gsap.registerPlugin(ScrollTrigger);
+    const motionMedia = gsap.matchMedia();
+    motionMedia.add("(prefers-reduced-motion: no-preference)", () => {
+      const entrance = gsap.context(() => {
+        gsap.from(element.querySelectorAll("h1 > span"), {
+          y: 28,
+          stagger: 0.09,
+          duration: 1,
+          ease: "power3.out",
+        });
+      }, element);
+      return () => entrance.revert();
+    });
     const context = gsap.context(() => {
       gsap.to(state.current, {
         progress: 1,
@@ -151,6 +163,7 @@ export function DigitalExperience() {
     });
     return () => {
       alive = false;
+      motionMedia.revert();
       context.revert();
     };
   }, []);
@@ -158,16 +171,16 @@ export function DigitalExperience() {
     <div ref={root} className={s.experience} data-progress="0">
       <section className={s.hero} aria-labelledby="hero-title">
         <div className={s.top}>
-          <span>{site.hero.eyebrow}</span>
+          <span>BYRON REINOSO / DISEÑO INDEPENDIENTE</span>
           <span>{site.location}</span>
         </div>
         <div className={s.layout}>
           <div className={s.copy}>
-            <h1 id="hero-title" aria-label={site.hero.title}>
-              <span>{site.hero.first}</span>
-              <span className={s.muted}>{site.hero.second}</span>
+            <h1 id="hero-title">
+              <span>Estrategia.</span>
+              <span className={s.muted}>Diseño.</span>
               <span>
-                Es tu mejor <em>vendedor.</em>
+                Intención<span className={s.period}>.</span>
               </span>
             </h1>
             <p>{site.hero.body}</p>
@@ -221,6 +234,12 @@ export function DigitalExperience() {
           <a href="#enfoque">Explora lo que podemos crear ↓</a>
         </div>
       </section>
+      <div className={s.tape} aria-hidden="true">
+        <span>
+          ESTRATEGIA DE MARCA <i>↗</i> DISEÑO WEB <i>↗</i> EXPERIENCIAS
+          DIGITALES <i>↗</i> ESTRATEGIA DE MARCA
+        </span>
+      </div>
       <section
         ref={philosophy}
         id="enfoque"
