@@ -77,16 +77,29 @@ class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
 }
 export function DigitalExperience() {
   const root = useRef<HTMLDivElement>(null),
-    philosophy = useRef<HTMLElement>(null);
-  const state = useRef<SceneState>({ progress: 0, invalidate: () => {} });
+    philosophy = useRef<HTMLElement>(null),
+    visual = useRef<HTMLDivElement>(null);
+  const state = useRef<SceneState>({
+    progress: 0,
+    anchorX: 0,
+    anchorY: 0,
+    visualWidth: 0,
+    visualHeight: 0,
+    invalidate: () => {},
+  });
   const [ready, setReady] = useState(false),
     [mobile, setMobile] = useState(false),
+    [tablet, setTablet] = useState(false),
     [active, setActive] = useState(true),
     [paused, setPaused] = useState(false);
   useEffect(() => {
     const media = matchMedia("(max-width:767px)"),
+      tabletMedia = matchMedia("(min-width:768px) and (max-width:1023px)"),
       motion = matchMedia("(prefers-reduced-motion: reduce)");
-    const resize = () => setMobile(media.matches);
+    const resize = () => {
+      setMobile(media.matches);
+      setTablet(tabletMedia.matches);
+    };
     const initialization = requestAnimationFrame(() => {
       resize();
       setPaused(motion.matches);
@@ -107,11 +120,13 @@ export function DigitalExperience() {
     });
     if (root.current) observer.observe(root.current);
     media.addEventListener("change", resize);
+    tabletMedia.addEventListener("change", resize);
     document.addEventListener("visibilitychange", visibility);
     return () => {
       cancelAnimationFrame(initialization);
       observer.disconnect();
       media.removeEventListener("change", resize);
+      tabletMedia.removeEventListener("change", resize);
       document.removeEventListener("visibilitychange", visibility);
     };
   }, []);
@@ -186,11 +201,34 @@ export function DigitalExperience() {
         );
     }, element);
     let alive = true;
+    let refreshFrame = 0;
+    const measure = () => {
+      if (!visual.current) return;
+      const bounds = visual.current.getBoundingClientRect(),
+        centerX = bounds.left + bounds.width / 2,
+        centerY = bounds.top + scrollY + bounds.height / 2;
+      state.current.anchorX = (centerX / innerWidth) * 2 - 1;
+      state.current.anchorY = 1 - (centerY / innerHeight) * 2;
+      state.current.visualWidth = bounds.width;
+      state.current.visualHeight = bounds.height;
+      state.current.invalidate();
+    };
+    measure();
+    const resizeObserver = new ResizeObserver(() => {
+      cancelAnimationFrame(refreshFrame);
+      refreshFrame = requestAnimationFrame(() => {
+        measure();
+        ScrollTrigger.refresh();
+      });
+    });
+    resizeObserver.observe(element);
     void document.fonts.ready.then(() => {
       if (alive) ScrollTrigger.refresh();
     });
     return () => {
       alive = false;
+      cancelAnimationFrame(refreshFrame);
+      resizeObserver.disconnect();
       motionMedia.revert();
       context.revert();
     };
@@ -217,7 +255,7 @@ export function DigitalExperience() {
               <Link href="/proyectos">Ver proyectos ↗</Link>
             </div>
           </div>
-          <div className={s.visual}>
+          <div ref={visual} className={s.visual}>
             <div
               className={ready ? s.scene : s.staticScene}
               role="img"
@@ -228,6 +266,7 @@ export function DigitalExperience() {
                   <Scene
                     state={state}
                     mobile={mobile}
+                    tablet={tablet}
                     active={active}
                     paused={paused}
                     onReady={(invalidate) => {
@@ -242,18 +281,6 @@ export function DigitalExperience() {
             </div>
             <div className={s.caption}>
               <span>BR / DE LA MARCA A LA WEB</span>
-              {ready && (
-                <button
-                  type="button"
-                  aria-pressed={paused}
-                  onClick={() => {
-                    setPaused((v) => !v);
-                    state.current.invalidate();
-                  }}
-                >
-                  {paused ? "Reanudar movimiento" : "Pausar movimiento"}
-                </button>
-              )}
             </div>
           </div>
         </div>
